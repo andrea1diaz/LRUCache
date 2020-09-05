@@ -23,6 +23,8 @@ bool LRUCache::insertKeyValuePair (char key, int value) {
 		if (counter >= size) {
 			node *tmp = root->next_node;
 			root = tmp;
+
+			counter = size;
 		}
 
 		node *new_node = new node;
