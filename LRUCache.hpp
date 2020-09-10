@@ -3,26 +3,32 @@
 
 #include <utility>
 #include <iostream>
+#include <unordered_map>
 
-	class LRUCache {
-	private:
-		int size;	
-
+template<typename T, typename W>	class LRUCache {
 	public:
 		struct node {
-			std::pair <char, int> data;
-			node *next_node;
+			W data;
+			T next_key;
+			T prev_key;
+
+			node(W data) {
+				this->data = data;
+			}
 		};
-	
-		node *root;
-		node *tail;
+		
 		int counter = 0;
 	
 		LRUCache(int size);
-		bool insertKeyValuePair (char key, int value);
-		void getMostRecentKey ();
-		bool getValueFromKey (char key);
-
+		bool insertKeyValuePair (T key, W value);
+		bool getMostRecentKey ();
+		bool getValueFromKey (T key);
+	
+	private:
+		int size;
+		std::unordered_map<T, node *> cache;
+		T root_key;
+		T tail_key;
 	};
 
 #endif /* LRU-CACHE_H */
